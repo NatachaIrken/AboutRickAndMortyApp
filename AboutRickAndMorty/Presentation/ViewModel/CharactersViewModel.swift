@@ -11,6 +11,7 @@ class CharactersViewModel: ObservableObject {
 	@Published var characterModel: RickAndMortyResponse?
 	private let service: CharactersDataService = CharactersDataService()
 		
+	@MainActor
 	func getCharacters() async {
 		do {
 			let result = await service.getCharactersList()
@@ -18,7 +19,6 @@ class CharactersViewModel: ObservableObject {
 			switch result {
 			case .success(let characterModel):
 				self.characterModel = characterModel
-				print(characterModel)
 			case .failure(_):
 				CharactersApiError.invalidUrl
 			}
