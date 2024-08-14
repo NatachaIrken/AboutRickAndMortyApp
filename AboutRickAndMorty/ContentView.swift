@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
+	@StateObject var viewModel = CharactersViewModel()
+	
+	var body: some View {
+		ScrollView {
+			
+		}
+		.onAppear {
+			Task {
+				await viewModel.getCharacters()
+			}
+			
+		}
+	}
 }
 
 //#Preview {
