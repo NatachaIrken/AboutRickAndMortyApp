@@ -13,13 +13,28 @@ struct ContentView: View {
 	var body: some View {
 		
 		NavigationStack {
-			if let characters = viewModel.characterModel?.results {
-				List(characters, id: \.id) { character in
-					
-					Text(character.name ?? "hola")
+			VStack {
+				
+				if let characters = viewModel.characterModel?.results {
+					List(characters, id: \.id) { character in
+						
+						Text(character.name ?? "")
+							.font(.callout)
+							.scaledToFit()
+						VStack {
+							if let url = URL(string: character.image) {
+								AsyncImage(url: url) { img in
+									img.image?.resizable()
+										.scaledToFit()
+										.clipShape(.capsule)
+								}
+							}
+						}
+					}
 				}
 			}
 		}
+		
 		.onAppear {
 			Task {
 				await viewModel.getCharacters()
