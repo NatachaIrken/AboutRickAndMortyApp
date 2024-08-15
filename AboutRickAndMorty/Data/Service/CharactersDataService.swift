@@ -31,8 +31,7 @@ public class CharactersDataService {
 	}
 }
 
-public enum CharactersApiError: Error
-{
+public enum CharactersApiError: Error {
 	case invalidUrl
 	case badResponse(Int)
 	case networkError(Error)
